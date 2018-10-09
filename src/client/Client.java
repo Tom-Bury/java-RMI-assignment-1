@@ -14,7 +14,7 @@ public class Client extends AbstractTestBooking {
 	
 	public static void main(String[] args) throws Exception {
 		
-		String carRentalCompanyName = "Hertz";
+//		String carRentalCompanyName = "Hertz";
 		
 		// An example reservation scenario on car rental company 'Hertz' would be...
 		Client client = new Client("simpleTrips", carRentalCompanyName);
