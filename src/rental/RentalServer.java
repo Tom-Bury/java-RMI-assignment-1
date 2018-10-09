@@ -3,17 +3,43 @@ package rental;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
 public class RentalServer {
-	
+
+	private static CarRentalCompany obj;
+
 	public static void main(String[] args) throws ReservationException,
 			NumberFormatException, IOException {
 		CrcData data  = loadData("hertz.csv");
-		new CarRentalCompany(data.name, data.regions, data.cars);
+		obj = new CarRentalCompany(data.name, data.regions, data.cars);
+
+		// BINDING
+		try {
+			System.setSecurityManager(null);
+			CarRentalCompanyInterface carRentalCompanyInterface = (CarRentalCompanyInterface) UnicastRemoteObject.exportObject(obj, 1100);
+
+//			Registry registry = LocateRegistry.getRegistry(1100);
+			Registry registry = LocateRegistry.createRegistry(1100);
+			// Ik weet niet waarom getRegistry niet werkt; create wel (maar in de slides gebruiken ze get)
+
+
+			// Rebind will replace any existing binding for the name within rmiregistry.
+			// If there was no match, the object will be bound to the name within the registry as usual.
+			String remoteName = CarRentalCompanyInterface.class.getName();
+			registry.rebind(remoteName, carRentalCompanyInterface);
+			System.err.println("INFO: Server ready\n");
+		} catch (Exception e) {
+			System.err.println("\nERROR: Binding error: " + e.toString());
+			e.printStackTrace();
+		}
+
 	}
 
 	public static CrcData loadData(String datafile)

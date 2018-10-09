@@ -1,5 +1,9 @@
 package rental;
 
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,7 +15,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CarRentalCompany {
+
+public class CarRentalCompany implements CarRentalCompanyInterface{
 
 	private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
 	
@@ -32,7 +37,10 @@ public class CarRentalCompany {
 		for(Car car:cars)
 			carTypes.put(car.getType().getName(), car.getType());
 		logger.log(Level.INFO, this.toString());
-	}
+
+		System.out.println("\nCarRentalCompany object succesfully created");
+    }
+
 
 	/********
 	 * NAME *
@@ -107,7 +115,7 @@ public class CarRentalCompany {
 		throw new IllegalArgumentException("<" + name + "> No car with uid " + uid);
 	}
 	
-	private List<Car> getAvailableCars(String carType, Date start, Date end) {
+	public List<Car> getAvailableCars(String carType, Date start, Date end) {
 		List<Car> availableCars = new LinkedList<Car>();
 		for (Car car : cars) {
 			if (car.getType().getName().equals(carType) && car.isAvailable(start, end)) {

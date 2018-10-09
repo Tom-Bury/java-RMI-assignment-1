@@ -1,12 +1,24 @@
 package client;
 
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import rental.CarType;
 import rental.Quote;
 import rental.Reservation;
 
+import rental.CarRentalCompanyInterface;
+
 public class Client extends AbstractTestBooking {
+
+    private final String registryName = CarRentalCompanyInterface.class.getName();
+    private CarRentalCompanyInterface carRentalCompanyInterface;
+
+
 	
 	/********
 	 * MAIN *
@@ -14,10 +26,14 @@ public class Client extends AbstractTestBooking {
 	
 	public static void main(String[] args) throws Exception {
 		
-//		String carRentalCompanyName = "Hertz";
-		
+		String carRentalCompanyName = "Hertz";
+
+		Client client = null;
+
 		// An example reservation scenario on car rental company 'Hertz' would be...
-		Client client = new Client("simpleTrips", carRentalCompanyName);
+		client = new Client("simpleTrips", carRentalCompanyName);
+
+		System.out.println("\nINFO: client object succesfully created.");
 		client.run();
 	}
 	
@@ -27,8 +43,24 @@ public class Client extends AbstractTestBooking {
 	
 	public Client(String scriptFile, String carRentalCompanyName) {
 		super(scriptFile);
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO");
+
+
+		this.carRentalCompanyInterface = null;
+
+        // LOOKUP
+        Registry registry;
+        try {
+        	System.setSecurityManager(null);
+            registry = LocateRegistry.getRegistry(1100);
+            this.carRentalCompanyInterface = (rental.CarRentalCompanyInterface) registry.lookup(registryName);
+
+        } catch (Exception e) {
+            System.err.println("ERROR: Lookup error: " + e.toString());
+            e.printStackTrace();
+        }
+
+        // TODO Auto-generated method stub
+//		throw new UnsupportedOperationException("TODO");
 	}
 	
 	/**
@@ -45,7 +77,14 @@ public class Client extends AbstractTestBooking {
 	@Override
 	protected void checkForAvailableCarTypes(Date start, Date end) throws Exception {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO");
+
+		System.out.println("\n========================= CHECK FOR AVAILABLE CAR TYPES =========================\n");
+        Set<CarType> result = this.carRentalCompanyInterface.getAvailableCarTypes(start, end);
+
+        System.out.println(result);
+		System.out.println("\n");
+
+//		throw new UnsupportedOperationException("TODO");
 	}
 
 	/**
