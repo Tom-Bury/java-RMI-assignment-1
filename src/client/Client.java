@@ -10,7 +10,7 @@ import rental.*;
 
 public class Client extends AbstractTestBooking {
 
-    private final String registryName = CarRentalCompanyInterface.class.getName();
+    private static final String REGISTRY_NAME = CarRentalCompanyInterface.class.getName();
     private CarRentalCompanyInterface carRentalCompanyInterface;
     private static final String CLIENT_INFO = "INFO CLIENT: ";
 	private static final String CLIENT_ERROR = "ERROR CLIENT: ";
@@ -49,15 +49,12 @@ public class Client extends AbstractTestBooking {
         try {
         	System.setSecurityManager(null);
             registry = LocateRegistry.getRegistry(1100);
-            this.carRentalCompanyInterface = (rental.CarRentalCompanyInterface) registry.lookup(registryName);
+            this.carRentalCompanyInterface = (rental.CarRentalCompanyInterface) registry.lookup(REGISTRY_NAME);
 
         } catch (Exception e) {
             System.err.println("ERROR: Lookup error: " + e.toString());
             e.printStackTrace();
         }
-
-        // TODO Auto-generated method stub
-//		throw new UnsupportedOperationException("TODO");
 	}
 	
 	/**
@@ -109,7 +106,7 @@ public class Client extends AbstractTestBooking {
 		ReservationConstraints reservationConstraints = new ReservationConstraints(start, end, carType, region);
 		Quote result = carRentalCompanyInterface.createQuote(reservationConstraints, clientName);
 
-		System.out.println(CLIENT_INFO + "@createQuote\n	" + reservationConstraints.toString());
+		System.out.println(CLIENT_INFO + "@createQuote\n		" + reservationConstraints.toString());
 
 		return result;
 	}
@@ -129,8 +126,11 @@ public class Client extends AbstractTestBooking {
 
 		System.out.println("\n========================= Client: CONFIRM QUOTE =========================\n");
 
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO");
+		Reservation reservation = carRentalCompanyInterface.confirmQuote(quote);
+
+		System.out.println(CLIENT_INFO + "@confirmQuote\n		" + reservation.toString());
+
+		return reservation;
 	}
 	
 	/**
