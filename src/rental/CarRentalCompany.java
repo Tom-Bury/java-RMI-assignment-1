@@ -4,14 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -169,7 +162,35 @@ public class CarRentalCompany implements CarRentalCompanyInterface{
 		logger.log(Level.INFO, "<{0}> Cancelling reservation {1}", new Object[]{name, res.toString()});
 		getCar(res.getCarId()).removeReservation(res);
 	}
-	
+
+
+	public List<Reservation> getAllReservationsFrom(String carRenter) {
+		List<Reservation> reservations = new ArrayList<>();
+
+		for (Car car : this.cars) {
+			List<Reservation> currCarReservations = car.getReservations(carRenter);
+			reservations.addAll(currCarReservations);
+		}
+
+		return reservations;
+	}
+
+	public int getNbReservations(String carType) {
+		int counter = 0;
+
+		for (Car car : this.cars) {
+			if (car.isType(carType)) {
+				counter += car.getNbReservations();
+			}
+		}
+
+		return counter;
+	}
+
+	/******************
+	 * STRING & UTILS *
+	 * ****************/
+
 	@Override
 	public String toString() {
 		return String.format("<%s> CRC is active in regions %s and serving with %d car types", name, listToString(regions), carTypes.size());

@@ -21,8 +21,8 @@ public class Reservation extends Quote {
     public int getCarId() {
     	return carId;
     }
-    
-    /*************
+
+	/*************
      * TO STRING *
      *************/
     

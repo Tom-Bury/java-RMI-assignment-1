@@ -36,6 +36,10 @@ public class Car {
         return type;
     }
 
+    public boolean isType(String carType) {
+        return this.type.getName().equals(carType);
+    }
+
     /****************
      * RESERVATIONS *
      ****************/
@@ -59,5 +63,21 @@ public class Car {
     public void removeReservation(Reservation reservation) {
         // equals-method for Reservation is required!
         reservations.remove(reservation);
+    }
+
+    public List<Reservation> getReservations(String carRenter) {
+        List<Reservation> renterReservations = new ArrayList<>();
+
+        for (Reservation reservation : this.reservations) {
+            if (reservation.getCarRenter().equals(carRenter)) {
+                renterReservations.add(reservation);
+            }
+        }
+
+        return renterReservations;
+    }
+
+    public int getNbReservations() {
+        return this.reservations.size();
     }
 }

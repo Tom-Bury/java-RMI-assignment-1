@@ -23,12 +23,9 @@ public class RentalServer {
 		// BINDING
 		try {
 			System.setSecurityManager(null);
-			CarRentalCompanyInterface carRentalCompanyInterface = (CarRentalCompanyInterface) UnicastRemoteObject.exportObject(obj, 1100);
+			CarRentalCompanyInterface carRentalCompanyInterface = (CarRentalCompanyInterface) UnicastRemoteObject.exportObject(obj, 0);
 
-//			Registry registry = LocateRegistry.getRegistry(1100);
-			Registry registry = LocateRegistry.createRegistry(1100);
-			// Ik weet niet waarom getRegistry niet werkt; create wel (maar in de slides gebruiken ze get)
-
+			Registry registry = LocateRegistry.getRegistry();
 
 			// Rebind will replace any existing binding for the name within rmiregistry.
 			// If there was no match, the object will be bound to the name within the registry as usual.

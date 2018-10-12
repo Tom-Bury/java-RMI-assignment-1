@@ -48,7 +48,7 @@ public class Client extends AbstractTestBooking {
         Registry registry;
         try {
         	System.setSecurityManager(null);
-            registry = LocateRegistry.getRegistry(1100);
+            registry = LocateRegistry.getRegistry("localhost");
             this.carRentalCompanyInterface = (rental.CarRentalCompanyInterface) registry.lookup(REGISTRY_NAME);
 
         } catch (Exception e) {
@@ -75,8 +75,10 @@ public class Client extends AbstractTestBooking {
 
         Set<CarType> result = this.carRentalCompanyInterface.getAvailableCarTypes(start, end);
 
-        System.out.println(CLIENT_INFO + result);
-		System.out.println("\n");
+		System.out.println(CLIENT_INFO + "Cars available from " + start + " to " + end);
+        for (CarType type : result) {
+			System.out.println(type);
+		}
 	}
 
 	/**
@@ -148,8 +150,19 @@ public class Client extends AbstractTestBooking {
 
 		System.out.println("\n========================= Client: GET RESERVATIONS BY RENTER =========================\n");
 
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO");
+		List<Reservation> reservations = carRentalCompanyInterface.getAllReservationsFrom(clientName);
+
+		if (reservations.isEmpty()) {
+			System.out.println(CLIENT_INFO + "Client " + clientName + " has no reservations.");
+			return reservations;
+		}
+		else {
+			System.out.println(CLIENT_INFO + "Client " + clientName + " has the following reservations:\n        ");
+			for (Reservation res : reservations) {
+				System.out.println(res.toString() + "\n        ");
+			}
+			return reservations;
+		}
 	}
 
 	/**
@@ -167,7 +180,10 @@ public class Client extends AbstractTestBooking {
 
 		System.out.println("\n========================= Client: GET NB OF RESERVATIONS FOR CAR TYPE =========================\n");
 
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO");
+		int nbReservations = this.carRentalCompanyInterface.getNbReservations(carType);
+
+		System.out.println(CLIENT_INFO + carType + " has " + nbReservations + " reservations.");
+
+		return nbReservations;
 	}
 }
