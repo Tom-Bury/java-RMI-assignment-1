@@ -17,6 +17,7 @@ public class CarRentalCompany implements CarRentalCompanyInterface{
 	private String name;
 	private List<Car> cars;
 	private Map<String,CarType> carTypes = new HashMap<String, CarType>();
+	public List<Quote> list = new ArrayList<>();
 
 	/***************
 	 * CONSTRUCTOR *
