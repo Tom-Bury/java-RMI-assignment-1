@@ -8,11 +8,11 @@ import java.rmi.RemoteException;
  */
 public interface ICarRentalAgency extends Remote {
 
-    IReservationSession getNewReservationSession(int id, String clientName) throws RemoteException;
+    IReservationSession getNewReservationSession(String clientName) throws RemoteException;
 
     boolean stopReservationSession(int id) throws RemoteException;
 
-    IManagerSession getNewManagerSession(int id) throws RemoteException;
+    IManagerSession getNewManagerSession() throws RemoteException;
 
     boolean stopManagerSession(int id) throws RemoteException;
 

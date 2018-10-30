@@ -12,7 +12,7 @@ import java.util.*;
 
 public class NewRentalServer {
 
-    private static final int PORT_NUMBER = 0;
+    public static final int PORT_NUMBER = 0;
     private static final String HOST = "localhost";
 
 
@@ -20,18 +20,19 @@ public class NewRentalServer {
     public static void main(String[] args) throws IOException, ReservationException {
 
         List<CarRentalCompany> initialCompanies = fetchInitialCRCs();
-        System.out.println("INFO @NewRentalServer: Succesfully fetched all initial companies from csv data.");
+        System.out.println("INFO @NewRentalServer: Succesfully fetched all initial companies from csv data.\n");
 
         // Start the NamingServiceServer with the initial CarRentalCompanies
         NamingServiceServer namingServiceServer = new NamingServiceServer();
         namingServiceServer.startServer(PORT_NUMBER, initialCompanies);
-        System.out.println("INFO @NewRentalServer: Succesfully started NamingServiceServer with initial data.");
+        System.out.println("INFO @NewRentalServer: Succesfully started NamingServiceServer with initial data.\n");
 
         // Start the RentalAgencyServer
         String namingServiceRMIregName= namingServiceServer.getRemoteName();
         RentalAgencyServer rentalAgencyServer = new RentalAgencyServer();
         rentalAgencyServer.startServer(PORT_NUMBER, HOST, namingServiceRMIregName);
-        System.out.println("INFO @NewRentalServer: Succesfully started RentalAgencyServer.");
+        System.out.println("INFO @NewRentalServer: Succesfully started RentalAgencyServer.\n");
+        System.out.println("==================== START SCRIPT ====================\n");
     }
 
 

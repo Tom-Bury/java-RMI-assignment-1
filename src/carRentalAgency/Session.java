@@ -14,6 +14,15 @@ public abstract class Session {
 
 
     /**
+     * CONSTRUCTOR
+     */
+    protected Session(int id, INamingService namingService) {
+        this.id = id;
+        this.namingService = namingService;
+    }
+
+
+    /**
      * GETTERS
      */
 

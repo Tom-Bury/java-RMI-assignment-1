@@ -2,8 +2,11 @@ package namingService;
 
 import carRentalCompanies.CarRentalCompany;
 import carRentalCompanies.ICarRentalCompany;
+import rental.NewRentalServer;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,13 +54,19 @@ public class NamingService implements INamingService {
 
     @Override
     public List<String> getAllRegisteredCarRentalCompanies() throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+
+        List<String> result = new ArrayList<>();
+        result.addAll(this.registeredCrcs.keySet());
+
+        return result;
     }
 
     @Override
     public ICarRentalCompany getCarRentalCompany(String crcName) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        ICarRentalCompany requestedCrc = this.registeredCrcs.get(crcName);
+        ICarRentalCompany stub = (ICarRentalCompany) UnicastRemoteObject.exportObject(requestedCrc, NewRentalServer.PORT_NUMBER);
+        // TODO: is deze stubs doorgeven ok?
+
+        return stub;
     }
 }

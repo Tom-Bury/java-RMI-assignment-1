@@ -10,6 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class NewClient extends AbstractTestManagement<IReservationSession, IManagerSession> {
@@ -39,21 +40,39 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
             System.err.println("ERROR @NewClient: Error while running NewClient");
             e.printStackTrace();
         }
+    }
 
+    /**
+     * CONSTRUCTOR
+     */
 
+    public NewClient(String scriptName) {
+        super(scriptName);
+
+        this.agency = null;
+
+        // LOOKUP CarRentalAgency in RMI Registry
+        Registry registry;
+        try {
+            System.setSecurityManager(null);
+            registry = LocateRegistry.getRegistry("localhost");
+            this.agency = (ICarRentalAgency) registry.lookup(AGENCY_REGISTRY_NAME);
+
+        } catch (Exception e) {
+            System.err.println("ERROR @NewClient: CarRentalAgency lookup error: " + e.toString());
+            e.printStackTrace();
+        }
     }
 
 
 
-
     /**
-     * METHODS INHERITED FROM TESTING INTERFACE
+     * METHODS INHERITED FROM TESTING INTERFACE: ReservationSession Methods
      */
 
     @Override
-    protected Set<String> getBestClients(IManagerSession ms) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    protected IReservationSession getNewReservationSession(String name) throws Exception {
+        return this.agency.getNewReservationSession(name);
     }
 
     @Override
@@ -63,27 +82,18 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
     }
 
     @Override
-    protected CarType getMostPopularCarTypeIn(IManagerSession ms, String carRentalCompanyName, int year) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
-    }
-
-    @Override
-    protected IReservationSession getNewReservationSession(String name) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
-    }
-
-    @Override
-    protected IManagerSession getNewManagerSession(String name, String carRentalName) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
-    }
-
-    @Override
     protected void checkForAvailableCarTypes(IReservationSession iReservationSession, Date start, Date end) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        Map<String, Set<CarType>> availableCarTypes = iReservationSession.getAvailableCarTypes(start, end);
+
+        printInfoHeader("checkForAvailableCarTypes");
+
+        for (String crcName : availableCarTypes.keySet()) {
+            System.out.println("Company \"" + crcName + "\" has the following car types available: ");
+
+            for (CarType ct : availableCarTypes.get(crcName)) {
+                System.out.println("    " + ct.getName());
+            }
+        }
     }
 
     @Override
@@ -94,6 +104,30 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected List<Reservation> confirmQuotes(IReservationSession iReservationSession, String name) throws Exception {
+        throw new UnsupportedOperationException("TODO");
+        // TODO
+    }
+
+
+
+    /**
+     * METHODS INHERITED FROM TESTING INTERFACE: ManagerSession Methods
+     */
+
+    @Override
+    protected IManagerSession getNewManagerSession(String name, String carRentalName) throws Exception {
+        throw new UnsupportedOperationException("TODO");
+        // TODO
+    }
+
+    @Override
+    protected Set<String> getBestClients(IManagerSession ms) throws Exception {
+        throw new UnsupportedOperationException("TODO");
+        // TODO
+    }
+
+    @Override
+    protected CarType getMostPopularCarTypeIn(IManagerSession ms, String carRentalCompanyName, int year) throws Exception {
         throw new UnsupportedOperationException("TODO");
         // TODO
     }
@@ -110,29 +144,12 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
         // TODO
     }
 
+
     /**
-     * CONSTRUCTOR
+     * HELPER METHODS
      */
 
-    public NewClient(String scriptName) {
-        super(scriptName);
-
-        this.agency = null;
-
-        // LOOKUP
-        Registry registry;
-        try {
-            System.setSecurityManager(null);
-            registry = LocateRegistry.getRegistry("localhost");
-            this.agency = (ICarRentalAgency) registry.lookup(AGENCY_REGISTRY_NAME);
-
-        } catch (Exception e) {
-            System.err.println("ERROR @NewClient: CarRentalAgency lookup error: " + e.toString());
-            e.printStackTrace();
-        }
+    private void printInfoHeader(String methodName) {
+        System.out.println("\nINFO @NewClient - " + methodName + ":");
     }
-
-
-
-
 }

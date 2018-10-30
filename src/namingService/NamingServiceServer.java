@@ -26,7 +26,7 @@ public class NamingServiceServer {
             // Rebind will replace any existing binding for the name within rmiregistry.
             // If there was no match, the object will be bound to the name within the registry as usual.
             registry.rebind(REMOTE_NAME, iNamingService);
-            System.err.println("INFO: NamingServiceServer ready\n");
+            System.err.println("INFO: NamingServiceServer ready");
         } catch (Exception e) {
             System.err.println("\nERROR @NamingServiceServer: Binding error: " + e.toString());
             e.printStackTrace();
