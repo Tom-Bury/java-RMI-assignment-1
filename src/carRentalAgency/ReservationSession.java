@@ -17,7 +17,7 @@ public class ReservationSession extends Session implements IReservationSession  
      * VARIABLES
      */
 
-    private String clietName;
+    private String clientName;
 
     private List<Quote> currentQuotes = new ArrayList<>();
 

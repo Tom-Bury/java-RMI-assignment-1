@@ -8,7 +8,7 @@ import java.util.Set;
 
 import rental.*;
 
-public class Client extends AbstractTestManagement {
+public class Client extends AbstractTestBooking {
 
     private static final String REGISTRY_NAME = CarRentalCompanyInterface.class.getName();
     private CarRentalCompanyInterface carRentalCompanyInterface;
@@ -21,18 +21,18 @@ public class Client extends AbstractTestManagement {
 	 * MAIN *
 	 ********/
 	
-	public static void main(String[] args) throws Exception {
-		
-		String carRentalCompanyName = "Hertz";
-
-		Client client = null;
-
-		// An example reservation scenario on car rental company 'Hertz' would be...
-		client = new Client("simpleTrips", carRentalCompanyName);
-
-		System.out.println("\nINFO: client object succesfully created.");
-		client.run();
-	}
+//	public static void main(String[] args) throws Exception {
+//
+//		String carRentalCompanyName = "Hertz";
+//
+//		Client client = null;
+//
+//		// An example reservation scenario on car rental company 'Hertz' would be...
+//		client = new Client("simpleTrips", carRentalCompanyName);
+//
+//		System.out.println("\nINFO: client object succesfully created.");
+//		client.run();
+//	}
 	
 	/***************
 	 * CONSTRUCTOR *
@@ -49,7 +49,7 @@ public class Client extends AbstractTestManagement {
         try {
         	System.setSecurityManager(null);
             registry = LocateRegistry.getRegistry("localhost");
-            this.carRentalCompanyInterface = (rental.CarRentalCompanyInterface) registry.lookup(REGISTRY_NAME);
+			this.carRentalCompanyInterface = (CarRentalCompanyInterface) registry.lookup(REGISTRY_NAME);
 
         } catch (Exception e) {
             System.err.println("ERROR: Lookup error: " + e.toString());
