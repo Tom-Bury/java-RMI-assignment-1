@@ -1,9 +1,6 @@
 package carRentalAgency;
 
-import rental.CarType;
-import rental.Quote;
-import rental.Reservation;
-import rental.ReservationException;
+import rental.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -18,7 +15,7 @@ import java.util.Set;
  */
 public interface IReservationSession extends Remote {
 
-    Quote createQuote(Date start, Date end, String carType, String region) throws RemoteException;
+    Quote createQuote(ReservationConstraints reservationConstraints) throws RemoteException;
 
     List<Reservation> confirmQuotes() throws ReservationException, RemoteException;
 

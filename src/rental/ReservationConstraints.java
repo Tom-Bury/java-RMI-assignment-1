@@ -95,7 +95,7 @@ public class ReservationConstraints implements Serializable {
 
 	@Override
 	public String toString() {
-            return String.format("Reservation constraints [from %s until %s, for car type '%s' in region '%s']", 
+            return String.format("\n	Reservation constraints [from %s until %s, for car type '%s' in region '%s']",
                     getStartDate(), getEndDate(), getCarType(), getRegion());
 	}
 

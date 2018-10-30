@@ -2,7 +2,9 @@ package namingService;
 
 import carRentalAgency.ICarRentalAgency;
 import carRentalCompanies.CarRentalCompany;
+import carRentalCompanies.ICarRentalCompany;
 
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -12,7 +14,7 @@ public class NamingServiceServer {
 
     private static final String REMOTE_NAME = INamingService.class.getName();
 
-    public static void startServer(int port, List<CarRentalCompany> initialCompanies) {
+    public static void startServer(int port, List<ICarRentalCompany> initialCompanies) throws RemoteException {
 
         NamingService namingService = new NamingService(initialCompanies);
 
@@ -26,7 +28,7 @@ public class NamingServiceServer {
             // Rebind will replace any existing binding for the name within rmiregistry.
             // If there was no match, the object will be bound to the name within the registry as usual.
             registry.rebind(REMOTE_NAME, iNamingService);
-            System.err.println("INFO: NamingServiceServer ready");
+            System.out.println("INFO: NamingServiceServer bound with RMI registry");
         } catch (Exception e) {
             System.err.println("\nERROR @NamingServiceServer: Binding error: " + e.toString());
             e.printStackTrace();

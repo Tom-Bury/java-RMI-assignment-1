@@ -15,7 +15,7 @@ public interface INamingService extends Remote {
 
     void unregisterCrc(String crcName) throws RemoteException;
 
-    List<String> getAllRegisteredCarRentalCompanies() throws RemoteException;
+    List<String> getAllRegisteredCarRentalCompanyNames() throws RemoteException;
 
     ICarRentalCompany getCarRentalCompany(String crcName) throws RemoteException;
 

@@ -3,10 +3,7 @@ package carRentalAgency;
 
 import carRentalCompanies.ICarRentalCompany;
 import namingService.INamingService;
-import rental.CarType;
-import rental.Quote;
-import rental.Reservation;
-import rental.ReservationException;
+import rental.*;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -37,9 +34,22 @@ public class ReservationSession extends Session implements IReservationSession  
      */
 
     @Override
-    public Quote createQuote(Date start, Date end, String carType, String region) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    public Quote createQuote(ReservationConstraints reservationConstraints) throws RemoteException {
+        List<String> companies = getNamingService().getAllRegisteredCarRentalCompanyNames();
+
+        for (String companyName : companies) {
+            ICarRentalCompany currCompany = getNamingService().getCarRentalCompany(companyName);
+            try {
+                Quote currQuote = currCompany.createQuote(reservationConstraints, this.clientName);
+                this.currentQuotes.add(currQuote);
+                return currQuote;
+            } catch (ReservationException e) {
+                System.out.println("    --> ReservationException @ReservationSession: could not create quote with company "  + currCompany.getName());
+                System.out.println();
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -54,10 +64,23 @@ public class ReservationSession extends Session implements IReservationSession  
         // Map die CRC-namen mapt op lijsten die de CarTypes bevatten die available zijn
         Map<String, Set<CarType>> availableCarTypes = new HashMap<>();
 
-        List<String> allCrcNames = getNamingService().getAllRegisteredCarRentalCompanies();
+        List<String> allCrcNames = new ArrayList<>();
+        try {
+            allCrcNames = getNamingService().getAllRegisteredCarRentalCompanyNames();
+        }
+        catch (RemoteException e) {
+            System.out.println("--------> RemoteExc thrown when getting all crc Names");
+        }
+
 
         for (String companyName : allCrcNames) {
-            ICarRentalCompany currCrc = getNamingService().getCarRentalCompany(companyName);
+            ICarRentalCompany currCrc = null;
+            try {
+                currCrc = getNamingService().getCarRentalCompany(companyName);
+            }
+            catch (RemoteException e) {
+                System.out.println("---------> RemoteExc at getCarRentalCOmp");
+            }
             Set<CarType> currAvCarTypes = currCrc.getAvailableCarTypes(start, end);
 
             availableCarTypes.put(companyName, currAvCarTypes);

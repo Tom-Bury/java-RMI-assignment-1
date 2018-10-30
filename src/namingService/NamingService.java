@@ -26,10 +26,10 @@ public class NamingService implements INamingService {
      * CONSTRUCTOR
      */
 
-    public NamingService(List<CarRentalCompany> initialCompanies) {
+    public NamingService(List<ICarRentalCompany> initialCompanies) throws RemoteException{
 
         // Register the given initial CarRentalCompanies
-        for (CarRentalCompany crc : initialCompanies) {
+        for (ICarRentalCompany crc : initialCompanies) {
             this.registeredCrcs.put(crc.getName(), crc);
         }
     }
@@ -53,7 +53,7 @@ public class NamingService implements INamingService {
     }
 
     @Override
-    public List<String> getAllRegisteredCarRentalCompanies() throws RemoteException {
+    public List<String> getAllRegisteredCarRentalCompanyNames() throws RemoteException {
 
         List<String> result = new ArrayList<>();
         result.addAll(this.registeredCrcs.keySet());
@@ -63,10 +63,16 @@ public class NamingService implements INamingService {
 
     @Override
     public ICarRentalCompany getCarRentalCompany(String crcName) throws RemoteException {
-        ICarRentalCompany requestedCrc = this.registeredCrcs.get(crcName);
-        ICarRentalCompany stub = (ICarRentalCompany) UnicastRemoteObject.exportObject(requestedCrc, NewRentalServer.PORT_NUMBER);
-        // TODO: is deze stubs doorgeven ok?
+//        ICarRentalCompany requestedCrc = this.registeredCrcs.get(crcName);
+//        ICarRentalCompany stub = (ICarRentalCompany) UnicastRemoteObject.exportObject(requestedCrc, NewRentalServer.PORT_NUMBER);
+//        // TODO: is deze stubs doorgeven ok?
+//
+//        return stub;
 
-        return stub;
+        if (!this.registeredCrcs.keySet().contains(crcName)) {
+            throw new IllegalArgumentException("The company " + crcName + " is not registered in the NamingService");
+        }
+
+        return this.registeredCrcs.get(crcName);
     }
 }

@@ -31,7 +31,7 @@ public class RentalAgencyServer {
             // Rebind will replace any existing binding for the name within rmiregistry.
             // If there was no match, the object will be bound to the name within the registry as usual.
             registry.rebind(REMOTE_NAME, iCarRentalAgency);
-            System.err.println("INFO: CarRentalAgencyServer ready");
+            System.out.println("INFO: CarRentalAgencyServer bound to RMI Registry");
         } catch (Exception e) {
             System.err.println("\nERROR @CarRentalAgency: Binding error: " + e.toString());
             e.printStackTrace();

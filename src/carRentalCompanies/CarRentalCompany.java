@@ -28,8 +28,7 @@ public class CarRentalCompany implements ICarRentalCompany {
         for(Car car:cars)
             carTypes.put(car.getType().getName(), car.getType());
         logger.log(Level.INFO, this.toString());
-
-        System.out.println("INFO @CarRentalCompany: CarRentalCompany object succesfully created from data\n");
+        System.out.println("\n");
     }
 
 
@@ -37,6 +36,7 @@ public class CarRentalCompany implements ICarRentalCompany {
      * NAME *
      ********/
 
+    @Override
     public String getName() {
         return name;
     }

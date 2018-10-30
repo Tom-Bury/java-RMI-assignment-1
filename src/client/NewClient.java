@@ -4,7 +4,9 @@ import carRentalAgency.ICarRentalAgency;
 import carRentalAgency.IManagerSession;
 import carRentalAgency.IReservationSession;
 import rental.CarType;
+import rental.Quote;
 import rental.Reservation;
+import rental.ReservationConstraints;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -98,8 +100,13 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected void addQuoteToSession(IReservationSession iReservationSession, String name, Date start, Date end, String carType, String region) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        printInfoHeader("addQuoteToSession");
+
+        ReservationConstraints reservationConstraints = new ReservationConstraints(start, end, carType, region);
+        Quote createdQuote = iReservationSession.createQuote(reservationConstraints);
+
+
+        System.out.println("    QUOTE CREATED:  " + createdQuote.toString());
     }
 
     @Override
@@ -150,6 +157,6 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
      */
 
     private void printInfoHeader(String methodName) {
-        System.out.println("\nINFO @NewClient - " + methodName + ":");
+        System.out.println("\n\n\nINFO @NewClient - " + methodName + ":");
     }
 }
