@@ -8,7 +8,7 @@ import java.util.Set;
 
 import rental.*;
 
-public class Client extends AbstractTestBooking {
+public class Client extends AbstractTestManagement {
 
     private static final String REGISTRY_NAME = CarRentalCompanyInterface.class.getName();
     private CarRentalCompanyInterface carRentalCompanyInterface;
