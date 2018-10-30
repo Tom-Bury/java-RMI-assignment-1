@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * CarRentalAgency is used by clients to start new manager/normal sessions.
+ * CarRentalAgency is used by clients to start new manager/normal sessions, which they can use to do various queries.
  */
 public interface ICarRentalAgency extends Remote {
 

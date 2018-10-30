@@ -1,7 +1,6 @@
 package carRentalAgency;
 
 import carRentalCompanies.ICarRentalCompany;
-import rental.CarRentalCompany;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

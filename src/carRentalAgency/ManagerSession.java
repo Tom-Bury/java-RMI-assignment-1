@@ -1,7 +1,6 @@
 package carRentalAgency;
 
 import carRentalCompanies.ICarRentalCompany;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.rmi.RemoteException;
 import java.util.Date;
@@ -15,43 +14,43 @@ public class ManagerSession implements IManagerSession {
 
     @Override
     public void registerCRC(String crcName, ICarRentalCompany crc) throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     public void unregisterCRC(String crcName) throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     public List<String> getAllRegisterdCrcs() throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     public List<String> getAllCarTypesOfCrc(String crcName) throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     public int getNbOfReservationsForCarTypeInCompany(String carType, String crcName) throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     public String getBestCustomer() throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     public String getMostPopularCarType(String crcName, Date startingDate) throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 }

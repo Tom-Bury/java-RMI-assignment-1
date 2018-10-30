@@ -5,7 +5,6 @@ import carRentalAgency.IManagerSession;
 import carRentalAgency.IReservationSession;
 import rental.CarType;
 import rental.Reservation;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -53,62 +52,62 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected Set<String> getBestClients(IManagerSession ms) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected String getCheapestCarType(IReservationSession iReservationSession, Date start, Date end, String region) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected CarType getMostPopularCarTypeIn(IManagerSession ms, String carRentalCompanyName, int year) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected IReservationSession getNewReservationSession(String name) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected IManagerSession getNewManagerSession(String name, String carRentalName) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected void checkForAvailableCarTypes(IReservationSession iReservationSession, Date start, Date end) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected void addQuoteToSession(IReservationSession iReservationSession, String name, Date start, Date end, String carType, String region) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected List<Reservation> confirmQuotes(IReservationSession iReservationSession, String name) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected int getNumberOfReservationsBy(IManagerSession ms, String clientName) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     @Override
     protected int getNumberOfReservationsForCarType(IManagerSession ms, String carRentalName, String carType) throws Exception {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     /**

@@ -1,7 +1,6 @@
 package carRentalCompanies;
 
 import rental.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -10,7 +9,7 @@ import java.util.logging.Logger;
 
 public class CarRentalCompany implements ICarRentalCompany {
 
-    private static Logger logger = Logger.getLogger(rental.CarRentalCompany.class.getName());
+    private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
 
     private List<String> regions;
     private String name;
@@ -30,7 +29,7 @@ public class CarRentalCompany implements ICarRentalCompany {
             carTypes.put(car.getType().getName(), car.getType());
         logger.log(Level.INFO, this.toString());
 
-        System.out.println("\nCarRentalCompany object succesfully created");
+        System.out.println("INFO @CarRentalCompany: CarRentalCompany object succesfully created from data\n");
     }
 
 
@@ -98,15 +97,15 @@ public class CarRentalCompany implements ICarRentalCompany {
 
     @Override
     public String getCheapestCarType() throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
 
     @Override
     public String getMostPopularCarType() throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
     /*********
@@ -205,8 +204,8 @@ public class CarRentalCompany implements ICarRentalCompany {
 
     @Override
     public String getBestCustomer() throws RemoteException {
-        throw new NotImplementedException();
-        //TODO
+        throw new UnsupportedOperationException("TODO");
+        // TODO
     }
 
 
