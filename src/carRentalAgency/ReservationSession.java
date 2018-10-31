@@ -46,6 +46,9 @@ public class ReservationSession extends Session implements IReservationSession  
             } catch (ReservationException e) {
                 System.out.println("    --> ReservationException @ReservationSession: could not create quote with company "  + currCompany.getName());
                 System.out.println();
+            } catch (IllegalArgumentException e) {
+                System.out.println("    --> IllegamArgumentException @Reservationsession: " + e.getMessage());
+                System.out.println();
             }
         }
 
@@ -54,8 +57,28 @@ public class ReservationSession extends Session implements IReservationSession  
 
     @Override
     public List<Reservation> confirmQuotes() throws ReservationException, RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        List<Reservation> reservations = new ArrayList<Reservation>();
+
+        try {
+            for (Quote q : this.currentQuotes) {
+                ICarRentalCompany company = getNamingService().getCarRentalCompany(q.getRentalCompany());
+                Reservation r = company.confirmQuote(q);
+                reservations.add(r);
+            }
+        } catch (ReservationException e) {
+            undoReservations(reservations);
+            System.out.println("ERROR @Reservationsession: could not confirm quote");
+            throw e;
+        }
+
+        return reservations;
+    }
+
+    private void undoReservations(List<Reservation> reservations) throws RemoteException {
+        for (Reservation r : reservations) {
+            ICarRentalCompany company = getNamingService().getCarRentalCompany(r.getRentalCompany());
+            company.cancelReservation(r);
+        }
     }
 
     @Override

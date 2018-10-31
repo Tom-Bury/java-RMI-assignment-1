@@ -18,6 +18,8 @@ public interface ICarRentalCompany extends Remote {
 
     Reservation confirmQuote(Quote quote) throws ReservationException, RemoteException;
 
+    void cancelReservation(Reservation res) throws RemoteException;
+
     List<Reservation> getAllReservationsFrom(String carRenter) throws RemoteException;
 
     int getNbReservations(String cartype) throws RemoteException;

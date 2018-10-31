@@ -111,8 +111,17 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected List<Reservation> confirmQuotes(IReservationSession iReservationSession, String name) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        printInfoHeader("confirmQuotes");
+
+        List<Reservation> reservations = iReservationSession.confirmQuotes();
+
+        System.out.println("--- Made " + reservations.size() + " reservations:");
+
+        for (Reservation r : reservations) {
+            System.out.println(r.toString());
+        }
+
+        return reservations;
     }
 
 
@@ -157,6 +166,6 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
      */
 
     private void printInfoHeader(String methodName) {
-        System.out.println("\n\n\nINFO @NewClient - " + methodName + ":");
+        System.out.println("\n\n\n=============INFO @NewClient - " + methodName + ":");
     }
 }
