@@ -80,4 +80,15 @@ public class Car {
     public int getNbReservations() {
         return this.reservations.size();
     }
+
+    public int getNbReservationsInYear(int year) {
+        int counter = 0;
+        for (Reservation r : this.reservations) {
+            if (r.isInYear(year)) {
+                counter++;
+            }
+        }
+
+        return counter;
+    }
 }

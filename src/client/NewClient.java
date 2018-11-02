@@ -79,12 +79,12 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected String getCheapestCarType(IReservationSession iReservationSession, Date start, Date end, String region) throws Exception {
-        //throw new UnsupportedOperationException("TODO");
-        // TODO
+        printInfoHeader("getCheapestCarType");
+
         String cheapestCarType = iReservationSession.getCheapestCarType(start, end, region);
 
-       // System.out.println("The cheapest car is of type: " + cheapestCarType);
-    return cheapestCarType;
+       System.out.println("The cheapest car is of type: " + cheapestCarType);
+        return cheapestCarType;
     }
 
     @Override
@@ -136,8 +136,6 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected IManagerSession getNewManagerSession(String name, String carRentalName) throws Exception {
-        // throw new UnsupportedOperationException("TODO");
-        // TODO
         return this.agency.getNewManagerSession(name);
     }
 
@@ -149,8 +147,14 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected CarType getMostPopularCarTypeIn(IManagerSession ms, String carRentalCompanyName, int year) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        printInfoHeader("getMostPopularCarTypeIn");
+
+        CarType mostPopular = ms.getMostPopularCarType(carRentalCompanyName, year);
+
+        System.out.println("Most popular car type in company " + carRentalCompanyName + " in year " + year +
+                " is: " + mostPopular.getName());
+
+        return mostPopular;
     }
 
     @Override
@@ -163,11 +167,11 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected int getNumberOfReservationsForCarType(IManagerSession ms, String carRentalName, String carType) throws Exception {
-        // throw new UnsupportedOperationException("TODO");
-        // TODO
+        printInfoHeader("getNumberOfReservationsForCarType");
+
         int nbOfReservations = ms.getNbOfReservationsForCarTypeInCompany(carType, carRentalName);
 
-        System.out.println("\nCLIENT MAIN: cartype " + carType + " from company " + carRentalName +
+        System.out.println("CLIENT MAIN: cartype " + carType + " from company " + carRentalName +
                 " has " + nbOfReservations + " reservations.");
 
         return nbOfReservations;

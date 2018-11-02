@@ -103,9 +103,29 @@ public class CarRentalCompany implements ICarRentalCompany {
 
 
     @Override
-    public String getMostPopularCarType() throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    public CarType getMostPopularCarType(int year) throws RemoteException {
+
+        Map<CarType, Integer> carTypeReservations = new HashMap<>();
+
+        for (Car c : this.cars) {
+            CarType type = c.getType();
+            int nbReservations = c.getNbReservationsInYear(year);
+            int oldNbReservations = carTypeReservations.getOrDefault(type, 0);
+            carTypeReservations.put(type, oldNbReservations + nbReservations);
+        }
+
+        CarType mostPopularType = null;
+        int mostPopTypeNbReservations = 0;
+
+        for (CarType type : carTypeReservations.keySet()) {
+            int currNbRes = carTypeReservations.get(type);
+            if (currNbRes > mostPopTypeNbReservations) {
+                mostPopTypeNbReservations = currNbRes;
+                mostPopularType = type;
+            }
+        }
+
+        return mostPopularType;
     }
 
     /*********

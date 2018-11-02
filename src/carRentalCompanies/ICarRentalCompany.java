@@ -14,6 +14,8 @@ public interface ICarRentalCompany extends Remote {
 
     Set<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException;
 
+    CarType getMostPopularCarType(int year) throws RemoteException;
+
     Quote createQuote(ReservationConstraints constraints, String client) throws RemoteException, ReservationException;
 
     Reservation confirmQuote(Quote quote) throws ReservationException, RemoteException;
@@ -28,10 +30,6 @@ public interface ICarRentalCompany extends Remote {
 
     String getBestCustomer() throws RemoteException;
 
-    String getMostPopularCarType() throws RemoteException;
-
     List<String> getRegions() throws RemoteException;
-
-    void cancelReservation(Reservation res) throws RemoteException;
 
 }

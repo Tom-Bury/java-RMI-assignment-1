@@ -2,6 +2,7 @@ package carRentalAgency;
 
 import carRentalCompanies.ICarRentalCompany;
 import namingService.INamingService;
+import rental.CarType;
 import rental.Quote;
 
 import java.rmi.RemoteException;
@@ -87,8 +88,8 @@ public class ManagerSession extends Session implements IManagerSession {
     }
 
     @Override
-    public String getMostPopularCarType(String crcName, Date startingDate) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    public CarType getMostPopularCarType(String crcName, int year) throws RemoteException {
+        ICarRentalCompany crc = getNamingService().getCarRentalCompany(crcName);
+        return crc.getMostPopularCarType(year);
     }
 }

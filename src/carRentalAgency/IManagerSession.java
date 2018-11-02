@@ -1,6 +1,7 @@
 package carRentalAgency;
 
 import carRentalCompanies.ICarRentalCompany;
+import rental.CarType;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -24,8 +25,7 @@ public interface IManagerSession extends Remote {
 
     String getBestCustomer()throws RemoteException;
 
-    String getMostPopularCarType(String crcName, Date startingDate) throws RemoteException;
-
     int getNbOfReservationsBy(String clientName) throws RemoteException;
 
+    CarType getMostPopularCarType(String crcName, int year) throws RemoteException;
 }

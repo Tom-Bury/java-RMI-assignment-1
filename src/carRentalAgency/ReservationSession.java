@@ -112,8 +112,6 @@ public class ReservationSession extends Session implements IReservationSession {
 
     @Override
     public String getCheapestCarType(Date start, Date end, String region) throws RemoteException {
-        //throw new UnsupportedOperationException("TODO");
-        // TODO
 
         List<String> allCrcNames = new ArrayList<>();
         try {
@@ -124,6 +122,7 @@ public class ReservationSession extends Session implements IReservationSession {
 
         String currCheapestCarType = null;
         double currCheapestPrice = Double.MAX_VALUE;
+
         for (String companyName : allCrcNames) {
             ICarRentalCompany currCrc = null;
             try {
@@ -137,20 +136,13 @@ public class ReservationSession extends Session implements IReservationSession {
                 for (CarType carType : currAvCarTypes) {
                     if (carType.getRentalPricePerDay() < currCheapestPrice) {
                         currCheapestCarType = carType.getName();
+                        currCheapestPrice = carType.getRentalPricePerDay();
                     }
                 }
             }
         }
 
         return currCheapestCarType;
-    }
-
-
-    private void undoReservations(List<Reservation> reservations) throws RemoteException {
-        for (Reservation r : reservations) {
-            ICarRentalCompany currCompany = getNamingService().getCarRentalCompany(r.getRentalCompany());
-            currCompany.cancelReservation(r);
-        }
     }
 }
 

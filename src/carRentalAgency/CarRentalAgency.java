@@ -63,8 +63,7 @@ public class CarRentalAgency implements ICarRentalAgency {
 
     @Override
     public IManagerSession getNewManagerSession(String managerName) throws RemoteException {
-        //throw new UnsupportedOperationException("TODO");
-        // TODO
+
         while (!isValidId(nextManagerSessionId, activeManagerSessions.keySet())) {
             incrementManagerSessionId();
         }

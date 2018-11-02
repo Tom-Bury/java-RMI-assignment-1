@@ -1,5 +1,8 @@
 package rental;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Reservation extends Quote {
 
     private int carId;
@@ -48,5 +51,10 @@ public class Reservation extends Quote {
 		if (carId != other.carId)
 			return false;
 		return true;
+	}
+
+	public boolean isInYear(int year) {
+		int startYear = getStartDate().getYear() + 1900;
+		return year == startYear;
 	}
 }
