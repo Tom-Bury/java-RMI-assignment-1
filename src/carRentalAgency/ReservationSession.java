@@ -8,7 +8,7 @@ import rental.*;
 import java.rmi.RemoteException;
 import java.util.*;
 
-public class ReservationSession extends Session implements IReservationSession  {
+public class ReservationSession extends Session implements IReservationSession {
 
     /**
      * VARIABLES
@@ -44,7 +44,7 @@ public class ReservationSession extends Session implements IReservationSession  
                 this.currentQuotes.add(currQuote);
                 return currQuote;
             } catch (ReservationException e) {
-                System.out.println("    --> ReservationException @ReservationSession: could not create quote with company "  + currCompany.getName());
+                System.out.println("    --> ReservationException @ReservationSession: could not create quote with company " + currCompany.getName());
                 System.out.println();
             } catch (IllegalArgumentException e) {
                 System.out.println("    --> IllegamArgumentException @Reservationsession: " + e.getMessage());
@@ -90,8 +90,7 @@ public class ReservationSession extends Session implements IReservationSession  
         List<String> allCrcNames = new ArrayList<>();
         try {
             allCrcNames = getNamingService().getAllRegisteredCarRentalCompanyNames();
-        }
-        catch (RemoteException e) {
+        } catch (RemoteException e) {
             System.out.println("--------> RemoteExc thrown when getting all crc Names");
         }
 
@@ -100,8 +99,7 @@ public class ReservationSession extends Session implements IReservationSession  
             ICarRentalCompany currCrc = null;
             try {
                 currCrc = getNamingService().getCarRentalCompany(companyName);
-            }
-            catch (RemoteException e) {
+            } catch (RemoteException e) {
                 System.out.println("---------> RemoteExc at getCarRentalCOmp");
             }
             Set<CarType> currAvCarTypes = currCrc.getAvailableCarTypes(start, end);
@@ -114,7 +112,45 @@ public class ReservationSession extends Session implements IReservationSession  
 
     @Override
     public String getCheapestCarType(Date start, Date end, String region) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
+        //throw new UnsupportedOperationException("TODO");
         // TODO
+
+        List<String> allCrcNames = new ArrayList<>();
+        try {
+            allCrcNames = getNamingService().getAllRegisteredCarRentalCompanyNames();
+        } catch (RemoteException e) {
+            System.out.println("--------> RemoteExc thrown when getting all crc Names");
+        }
+
+        String currCheapestCarType = null;
+        double currCheapestPrice = Double.MAX_VALUE;
+        for (String companyName : allCrcNames) {
+            ICarRentalCompany currCrc = null;
+            try {
+                currCrc = getNamingService().getCarRentalCompany(companyName);
+            } catch (RemoteException e) {
+                System.out.println("---------> RemoteExc at getCarRentalCOmp");
+            }
+
+            if (currCrc.getRegions().contains(region)) {
+                Set<CarType> currAvCarTypes = currCrc.getAvailableCarTypes(start, end);
+                for (CarType carType : currAvCarTypes) {
+                    if (carType.getRentalPricePerDay() < currCheapestPrice) {
+                        currCheapestCarType = carType.getName();
+                    }
+                }
+            }
+        }
+
+        return currCheapestCarType;
+    }
+
+
+    private void undoReservations(List<Reservation> reservations) throws RemoteException {
+        for (Reservation r : reservations) {
+            ICarRentalCompany currCompany = getNamingService().getCarRentalCompany(r.getRentalCompany());
+            currCompany.cancelReservation(r);
+        }
     }
 }
+

@@ -12,7 +12,7 @@ public interface ICarRentalAgency extends Remote {
 
     boolean stopReservationSession(int id) throws RemoteException;
 
-    IManagerSession getNewManagerSession() throws RemoteException;
+    IManagerSession getNewManagerSession(String managerName) throws RemoteException;
 
     boolean stopManagerSession(int id) throws RemoteException;
 

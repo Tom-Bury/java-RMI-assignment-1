@@ -26,4 +26,6 @@ public interface IManagerSession extends Remote {
 
     String getMostPopularCarType(String crcName, Date startingDate) throws RemoteException;
 
+    int getNbOfReservationsBy(String clientName) throws RemoteException;
+
 }

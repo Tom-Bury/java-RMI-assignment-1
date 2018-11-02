@@ -30,4 +30,8 @@ public interface ICarRentalCompany extends Remote {
 
     String getMostPopularCarType() throws RemoteException;
 
+    List<String> getRegions() throws RemoteException;
+
+    void cancelReservation(Reservation res) throws RemoteException;
+
 }

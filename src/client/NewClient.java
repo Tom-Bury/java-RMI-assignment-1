@@ -79,8 +79,12 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected String getCheapestCarType(IReservationSession iReservationSession, Date start, Date end, String region) throws Exception {
-        throw new UnsupportedOperationException("TODO");
+        //throw new UnsupportedOperationException("TODO");
         // TODO
+        String cheapestCarType = iReservationSession.getCheapestCarType(start, end, region);
+
+       // System.out.println("The cheapest car is of type: " + cheapestCarType);
+    return cheapestCarType;
     }
 
     @Override
@@ -132,8 +136,9 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected IManagerSession getNewManagerSession(String name, String carRentalName) throws Exception {
-        throw new UnsupportedOperationException("TODO");
+        // throw new UnsupportedOperationException("TODO");
         // TODO
+        return this.agency.getNewManagerSession(name);
     }
 
     @Override
@@ -150,14 +155,22 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected int getNumberOfReservationsBy(IManagerSession ms, String clientName) throws Exception {
-        throw new UnsupportedOperationException("TODO");
+        //throw new UnsupportedOperationException("TODO");
         // TODO
+        int nbRes = ms.getNbOfReservationsBy(clientName);
+        return nbRes;
     }
 
     @Override
     protected int getNumberOfReservationsForCarType(IManagerSession ms, String carRentalName, String carType) throws Exception {
-        throw new UnsupportedOperationException("TODO");
+        // throw new UnsupportedOperationException("TODO");
         // TODO
+        int nbOfReservations = ms.getNbOfReservationsForCarTypeInCompany(carType, carRentalName);
+
+        System.out.println("\nCLIENT MAIN: cartype " + carType + " from company " + carRentalName +
+                " has " + nbOfReservations + " reservations.");
+
+        return nbOfReservations;
     }
 
 

@@ -62,9 +62,19 @@ public class CarRentalAgency implements ICarRentalAgency {
     }
 
     @Override
-    public IManagerSession getNewManagerSession() throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
+    public IManagerSession getNewManagerSession(String managerName) throws RemoteException {
+        //throw new UnsupportedOperationException("TODO");
         // TODO
+        while (!isValidId(nextManagerSessionId, activeManagerSessions.keySet())) {
+            incrementManagerSessionId();
+        }
+
+        // Geef een stub interface mee waarmee de manager operaties op de remote object kan uitvoeren
+
+        IManagerSession newSession = new ManagerSession(nextManagerSessionId, namingService, managerName);
+        IManagerSession stub = (IManagerSession) UnicastRemoteObject.exportObject(newSession, NewRentalServer.PORT_NUMBER);
+
+        return stub;
     }
 
     @Override
