@@ -141,8 +141,16 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected Set<String> getBestClients(IManagerSession ms) throws Exception {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        printInfoHeader("getBestClients");
+
+        Set<String> bestClients = ms.getBestCustomers();
+
+        System.out.println("The best clients across all car rental companies are: ");
+        for (String client : bestClients) {
+            System.out.println(client);
+        }
+
+        return bestClients;
     }
 
     @Override
@@ -159,8 +167,6 @@ public class NewClient extends AbstractTestManagement<IReservationSession, IMana
 
     @Override
     protected int getNumberOfReservationsBy(IManagerSession ms, String clientName) throws Exception {
-        //throw new UnsupportedOperationException("TODO");
-        // TODO
         int nbRes = ms.getNbOfReservationsBy(clientName);
         return nbRes;
     }

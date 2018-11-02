@@ -6,9 +6,7 @@ import rental.CarType;
 import rental.Quote;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ManagerSession extends Session implements IManagerSession {
 
@@ -61,8 +59,6 @@ public class ManagerSession extends Session implements IManagerSession {
 
     @Override
     public int getNbOfReservationsForCarTypeInCompany(String carType, String crcName) throws RemoteException {
-        //throw new UnsupportedOperationException("TODO");
-        // TODO
         ICarRentalCompany currCompany = getNamingService().getCarRentalCompany(crcName);
         return currCompany.getNbReservations(carType);
 
@@ -70,8 +66,6 @@ public class ManagerSession extends Session implements IManagerSession {
 
     @Override
     public int getNbOfReservationsBy(String clientName) throws RemoteException {
-        //throw new UnsupportedOperationException("TODO");
-        // TODO
         List<String> companies = getNamingService().getAllRegisteredCarRentalCompanyNames();
         int counter = 0;
         for (String companyName : companies) {
@@ -82,9 +76,39 @@ public class ManagerSession extends Session implements IManagerSession {
     }
 
     @Override
-    public String getBestCustomer() throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    public Set<String> getBestCustomers() throws RemoteException {
+
+        Map<String, Integer> allCustomers = new HashMap<>();
+        List<String> companies = getNamingService().getAllRegisteredCarRentalCompanyNames();
+
+        for (String crcName : companies) {
+            ICarRentalCompany carRentalCompany = getNamingService().getCarRentalCompany(crcName);
+            Map<String, Integer> currCustomers = carRentalCompany.getAllCustomersAndReservationNumbers();
+
+            for (String currCust : currCustomers.keySet()) {
+                int currNbRes = currCustomers.get(currCust);
+                int oldNbRes = allCustomers.getOrDefault(currCust, 0);
+                allCustomers.put(currCust, oldNbRes + currNbRes);
+            }
+        }
+
+        Set<String> bestCustomers = new HashSet<>();
+        int bestNbRes = 0;
+
+        for (String cus : allCustomers.keySet()) {
+            int currNbRes = allCustomers.get(cus);
+
+            if (currNbRes > bestNbRes) {
+                bestCustomers.clear();
+                bestCustomers.add(cus);
+                bestNbRes = currNbRes;
+            }
+            else if (currNbRes == bestNbRes) {
+                bestCustomers.add(cus);
+            }
+        }
+
+        return bestCustomers;
     }
 
     @Override

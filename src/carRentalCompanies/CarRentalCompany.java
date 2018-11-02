@@ -225,14 +225,22 @@ public class CarRentalCompany implements ICarRentalCompany {
     }
 
 
-
     @Override
-    public String getBestCustomer() throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    public Map<String, Integer> getAllCustomersAndReservationNumbers() throws RemoteException {
+        Map<String, Integer> allCustomersAndReservationNbs = new HashMap<>();
+
+        for (Car c : this.cars) {
+            Map<String, Integer> currCarCustAndResvNbs = c.getAllCustomersAndReservationNbs();
+
+            for (String currCust : currCarCustAndResvNbs.keySet()) {
+                int currNbRes = currCarCustAndResvNbs.get(currCust);
+                int oldNbRes = allCustomersAndReservationNbs.getOrDefault(currCust, 0);
+                allCustomersAndReservationNbs.put(currCust, oldNbRes + currNbRes);
+            }
+        }
+
+        return allCustomersAndReservationNbs;
     }
-
-
 
     /******************
      * STRING & UTILS *
@@ -253,5 +261,18 @@ public class CarRentalCompany implements ICarRentalCompany {
             }
         }
         return out.toString();
+    }
+
+    private static String mapToString(Map<String, Integer> map) {
+        StringBuilder builder = new StringBuilder();
+
+        for (String key : map.keySet()) {
+            builder.append(key);
+            builder.append(" - ");
+            builder.append(map.get(key));
+            builder.append(" | ");
+        }
+
+        return builder.toString();
     }
 }

@@ -1,8 +1,6 @@
 package rental;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Car {
 
@@ -91,4 +89,24 @@ public class Car {
 
         return counter;
     }
+
+
+    public Map<String, Integer> getAllCustomersAndReservationNbs() {
+        Map<String, Integer> allCusAndResvNbs = new HashMap<>();
+
+        for (Reservation r : this.reservations) {
+            String currCust = r.getCarRenter();
+            int oldNbRes = allCusAndResvNbs.getOrDefault(currCust, 0);
+            allCusAndResvNbs.put(currCust, oldNbRes + 1);
+        }
+
+        return allCusAndResvNbs;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + " - " + type.getName();
+    }
+
+
 }

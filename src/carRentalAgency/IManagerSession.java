@@ -7,6 +7,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A ManagerSession is used by a manager to (un)register CarRentalCompanies and make manager specific queries.
@@ -23,7 +24,7 @@ public interface IManagerSession extends Remote {
 
     int getNbOfReservationsForCarTypeInCompany(String carType, String crcName) throws RemoteException;
 
-    String getBestCustomer()throws RemoteException;
+    Set<String> getBestCustomers()throws RemoteException;
 
     int getNbOfReservationsBy(String clientName) throws RemoteException;
 
