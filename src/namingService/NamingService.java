@@ -41,12 +41,12 @@ public class NamingService implements INamingService {
      */
 
     @Override
-    public void registerCrc(String crcName, ICarRentalCompany crc) throws RemoteException {
+    public synchronized void registerCrc(String crcName, ICarRentalCompany crc) throws RemoteException {
         this.registerCrc(crcName, crc);
     }
 
     @Override
-    public void unregisterCrc(String crcName) throws RemoteException {
+    public synchronized void unregisterCrc(String crcName) throws RemoteException {
         this.registeredCrcs.remove(crcName);
     }
 

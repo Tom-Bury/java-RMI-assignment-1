@@ -45,14 +45,12 @@ public class ManagerSession extends Session implements IManagerSession {
 
     @Override
     public List<String> getAllRegisterdCrcs() throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        return getNamingService().getAllRegisteredCarRentalCompanyNames();
     }
 
     @Override
-    public List<String> getAllCarTypesOfCrc(String crcName) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    public Set<String> getAllCarTypesOfCrc(String crcName) throws RemoteException {
+        return getNamingService().getCarRentalCompany(crcName).getAllCarTypesNames();
     }
 
     @Override

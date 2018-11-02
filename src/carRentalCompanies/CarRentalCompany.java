@@ -121,6 +121,11 @@ public class CarRentalCompany implements ICarRentalCompany {
         return mostPopularType;
     }
 
+    @Override
+    public Set<String> getAllCarTypesNames() {
+        return this.carTypes.keySet();
+    }
+
     /*********
      * CARS *
      *********/

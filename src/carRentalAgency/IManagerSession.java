@@ -20,7 +20,7 @@ public interface IManagerSession extends Remote {
 
     List<String> getAllRegisterdCrcs() throws RemoteException;
 
-    List<String> getAllCarTypesOfCrc(String crcName) throws RemoteException;
+    Set<String> getAllCarTypesOfCrc(String crcName) throws RemoteException;
 
     int getNbOfReservationsForCarTypeInCompany(String carType, String crcName) throws RemoteException;
 

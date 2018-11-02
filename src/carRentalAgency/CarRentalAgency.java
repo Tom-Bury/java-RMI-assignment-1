@@ -56,9 +56,8 @@ public class CarRentalAgency implements ICarRentalAgency {
     }
 
     @Override
-    public boolean stopReservationSession(int id) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    public synchronized void stopReservationSession(int id) throws RemoteException {
+        this.activeReservationSessions.remove(id);
     }
 
     @Override
@@ -77,9 +76,8 @@ public class CarRentalAgency implements ICarRentalAgency {
     }
 
     @Override
-    public boolean stopManagerSession(int id) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+    public synchronized void stopManagerSession(int id) throws RemoteException {
+        this.activeManagerSessions.remove(id);
     }
 
 
