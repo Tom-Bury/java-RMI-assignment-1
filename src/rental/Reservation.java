@@ -54,7 +54,11 @@ public class Reservation extends Quote {
 	}
 
 	public boolean isInYear(int year) {
-		int startYear = getStartDate().getYear() + 1900;
+    	Date startDate = getStartDate();
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(startDate);
+    	int startYear = cal.get(Calendar.YEAR);
+
 		return year == startYear;
 	}
 }

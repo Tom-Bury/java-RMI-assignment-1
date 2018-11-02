@@ -96,13 +96,6 @@ public class CarRentalCompany implements ICarRentalCompany {
 
 
     @Override
-    public String getCheapestCarType() throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
-    }
-
-
-    @Override
     public CarType getMostPopularCarType(int year) throws RemoteException {
 
         Map<CarType, Integer> carTypeReservations = new HashMap<>();
@@ -156,11 +149,11 @@ public class CarRentalCompany implements ICarRentalCompany {
 
     public Quote createQuote(ReservationConstraints constraints, String client)
             throws ReservationException {
-//        logger.log(Level.INFO, "<{0}> Creating tentative reservation for {1} with constraints {2}",
-//                new Object[]{name, client, constraints.toString()});
+        logger.log(Level.INFO, "<{0}> Creating tentative reservation for {1} with constraints {2}",
+                new Object[]{name, client, constraints.toString()});
         //TODO: logger terug aanzetten en de sout verwijderen
-        System.out.println("    <"+name+"> Creating tentative reservation for "+client+" with constraints");
-        System.out.println(constraints.toString());
+//        System.out.println("    <"+name+"> Creating tentative reservation for "+client+" with constraints");
+//        System.out.println(constraints.toString());
 
 
         if(!regions.contains(constraints.getRegion()) || !isAvailable(constraints.getCarType(), constraints.getStartDate(), constraints.getEndDate()))

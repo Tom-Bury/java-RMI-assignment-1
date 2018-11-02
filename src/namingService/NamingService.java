@@ -42,14 +42,12 @@ public class NamingService implements INamingService {
 
     @Override
     public void registerCrc(String crcName, ICarRentalCompany crc) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        this.registerCrc(crcName, crc);
     }
 
     @Override
     public void unregisterCrc(String crcName) throws RemoteException {
-        throw new UnsupportedOperationException("TODO");
-        // TODO
+        this.registeredCrcs.remove(crcName);
     }
 
     @Override
