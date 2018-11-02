@@ -8,6 +8,12 @@ import java.util.Set;
 
 import rental.*;
 
+/**
+ * THIS IS THE OLD CLIENT CLASS OF THE FIRST PART, IT'S NO LONGER USED AND IS
+ * ONLY HERE FOR EXTRA INFORMATION.
+ * GO TO NEWCLIENT
+ */
+
 public abstract class Client extends AbstractTestBooking {
 	public Client(String scriptFile) {
 		super(scriptFile);

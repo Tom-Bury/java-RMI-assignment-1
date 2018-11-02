@@ -13,6 +13,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * THIS IS THE OLD RENTALSERVER CLASS OF THE FIRST PART, IT'S NO LONGER USED AND IS
+ * ONLY HERE FOR EXTRA INFORMATION.
+ * GO TO NEWRENTALSERVER
+ */
+
 public class RentalServer {
 
 	private static CarRentalCompany obj;
