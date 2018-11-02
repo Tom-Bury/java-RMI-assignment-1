@@ -6,6 +6,7 @@ import namingService.INamingService;
 import rental.*;
 
 import java.rmi.RemoteException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class ReservationSession extends Session implements IReservationSession {
@@ -24,7 +25,7 @@ public class ReservationSession extends Session implements IReservationSession {
      */
 
     public ReservationSession(int id, INamingService namingService, String clientName) {
-        super(id, namingService);
+        super(id, namingService, new Date(System.currentTimeMillis()));
         this.clientName = clientName;
     }
 

@@ -25,7 +25,7 @@ public class ManagerSession extends Session implements IManagerSession {
      */
 
     public ManagerSession(int id, INamingService namingService, String managerName) {
-        super(id, namingService);
+        super(id, namingService, new Date(System.currentTimeMillis()));
         this.clientName = managerName;
     }
 

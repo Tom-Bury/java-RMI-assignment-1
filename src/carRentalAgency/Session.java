@@ -2,6 +2,8 @@ package carRentalAgency;
 
 import namingService.INamingService;
 
+import java.util.Date;
+
 public abstract class Session {
 
     /**
@@ -12,13 +14,16 @@ public abstract class Session {
 
     private INamingService  namingService;
 
+    private Date creationDate;
+
 
     /**
      * CONSTRUCTOR
      */
-    protected Session(int id, INamingService namingService) {
+    protected Session(int id, INamingService namingService, Date creationDate) {
         this.id = id;
         this.namingService = namingService;
+        this.creationDate = creationDate;
     }
 
 
@@ -28,6 +33,10 @@ public abstract class Session {
 
     public int getId() {
         return id;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     public INamingService getNamingService() {
